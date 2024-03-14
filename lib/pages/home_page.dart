@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_todo/models/todo.dart';
@@ -12,6 +14,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final TextEditingController _textEditingController = TextEditingController();
+
   final DatabaseService _databaseService = DatabaseService();
 
   @override
@@ -20,6 +24,15 @@ class _HomePageState extends State<HomePage> {
       resizeToAvoidBottomInset: false,
       appBar: _appBar(),
       body: _buildUI(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _displayTextInputDialog, backgroundColor: Theme
+          .of(context)
+          .colorScheme
+          .primary,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),),
     );
   }
 
@@ -94,12 +107,47 @@ class _HomePageState extends State<HomePage> {
                       _databaseService.updateTodo(todoId, updatedTodo);
                     },
                   ),
+                  onLongPress: () {
+                    _databaseService.deleteTodo(todoId);
+                  },
                 ),
               );
             },
           );
         },
       ),
+    );
+  }
+
+  void _displayTextInputDialog() async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+            title: const Text('Add a todo'),
+            content: TextField(
+              controller: _textEditingController,
+              decoration: const InputDecoration(hintText: "Todo..."),
+            ),
+            actions: <Widget>[
+              MaterialButton(
+                color: Theme.of(context).colorScheme.primary,
+                textColor: Colors.white,
+                child: const Text('Ok'),
+                onPressed: () {
+                  Todo todo = Todo(
+                      task: _textEditingController.text,
+                      isDone: false,
+                      createdOn: Timestamp.now(),
+                      updatedOn:  Timestamp.now());
+                  _databaseService.addTodo(todo);
+                  Navigator.pop(context);
+                  _textEditingController.clear();
+                },
+              )
+            ]
+        );
+      },
     );
   }
 }
