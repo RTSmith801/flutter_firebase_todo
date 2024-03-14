@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "935053201367",
+    "project_id": "flutterfirebasetodo-6dd0b",
+    "storage_bucket": "flutterfirebasetodo-6dd0b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935053201367:android:bc1a2d2ec8fe8edb1cc592",
+        "android_client_info": {
+          "package_name": "com.pixeltapestry.flutter_firebase_todo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGCP5a4Kr0bpXdtEYUhBaiW25wuNFsi7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
