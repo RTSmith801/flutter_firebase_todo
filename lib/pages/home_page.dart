@@ -1,10 +1,13 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_todo/models/todo.dart';
 import 'package:flutter_firebase_todo/services/database_service.dart';
+import 'package:flutter_firebase_todo/services/toast.dart';
 import 'package:intl/intl.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -38,16 +41,25 @@ class _HomePageState extends State<HomePage> {
 
   PreferredSizeWidget _appBar() {
     return AppBar(
-      backgroundColor: Theme
-          .of(context)
-          .colorScheme
-          .primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       title: const Text(
         "Todo",
         style: TextStyle(
           color: Colors.white,
         ),
       ),
+      actions: [
+        IconButton(
+          // Sign out button
+          icon: Icon(Icons.logout),
+          color: Colors.white,
+          onPressed: () {
+            FirebaseAuth.instance.signOut();
+            Navigator.pushNamed(context, "/login");
+            showToast(message: "Successfully signed out");
+          },
+        ),
+      ],
     );
   }
 

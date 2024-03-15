@@ -34,6 +34,7 @@ dependencies:
   firebase_auth: ^4.17.9
   sign_in_button: ^3.2.0
   firebase_storage: ^11.6.10
+  fluttertoast: ^8.2.4
 
 
 
