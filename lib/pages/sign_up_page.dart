@@ -1,10 +1,35 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_todo/pages/login_page.dart';
+import 'package:flutter_firebase_todo/services/firebase_auth_services.dart';
 import 'package:flutter_firebase_todo/services/form_container_widget.dart';
 import 'package:flutter_firebase_todo/services/form_container_widget.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
+
   const SignUpPage({Key? key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+
+  final FirebaseAuthService _auth = FirebaseAuthService();
+
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  @override
+  // prevents memory leaks
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +54,7 @@ class SignUpPage extends StatelessWidget {
                 height: 30,
               ),
               FormContainerWidget(
+                controller: _usernameController,
                 hintText: "User Name",
                 isPasswordField: false,
               ),
@@ -36,6 +62,7 @@ class SignUpPage extends StatelessWidget {
                 height: 10,
               ),
               FormContainerWidget(
+                controller: _emailController,
                 hintText: "Email",
                 isPasswordField: false,
               ),
@@ -43,18 +70,22 @@ class SignUpPage extends StatelessWidget {
                 height: 10,
               ),
               FormContainerWidget(
+                controller: _passwordController,
                 hintText: "Password",
                 isPasswordField: true,
               ),
               SizedBox(height: 30,),
-              Container(
-                  width: double.infinity,
-                  height: 45,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(child: Text("Sign Up",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),))
+              GestureDetector(
+                onTap: _signUp,
+                child: Container(
+                    width: double.infinity,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(child: Text("Sign Up",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),))
+                ),
               ),
               SizedBox(height: 20,),
               Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -74,5 +105,23 @@ class SignUpPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _signUp() async {
+    String username = _usernameController.text;
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+
+    print("user = ");
+    print(user);
+
+    if (user != null){
+      print("User is successfully created");
+      Navigator.pushNamed(context, "/home");
+    } else {
+      print("Error occurred in sign_up_page.dart (approx. line 121)");
+    }
   }
 }

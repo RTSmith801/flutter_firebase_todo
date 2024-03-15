@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_firebase_todo/pages/home_page.dart';
 import 'package:flutter_firebase_todo/pages/login_page.dart';
+import 'package:flutter_firebase_todo/pages/sign_up_page.dart';
 import 'package:flutter_firebase_todo/pages/splash_screen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -29,13 +30,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Firebase Todo App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: SplashScreen(
-        child: LoginPage(),
-      )
+      routes: {
+        '/': (context) => SplashScreen(
+          // This will show either the LoginPage, or Home Page based on user auth
+          child: LoginPage(),
+        ),
+        '/login': (context) => LoginPage(),
+        '/signUp': (context) => SignUpPage(),
+        '/home': (context) => HomePage(),
+      },
     );
   }
 }
