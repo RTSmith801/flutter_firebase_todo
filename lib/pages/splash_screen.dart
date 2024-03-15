@@ -30,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
               style: TextStyle(
                 color: Colors.blue,
                 fontWeight: FontWeight.bold,
+                fontSize: 26,
               ),
             )
         )

@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_todo/models/todo.dart';
 import 'package:flutter_firebase_todo/services/database_service.dart';
-import 'package:flutter_firebase_todo/services/toast.dart';
+import 'package:flutter_firebase_todo/global/common/toast.dart';
 import 'package:intl/intl.dart';
 
 
@@ -28,20 +28,20 @@ class _HomePageState extends State<HomePage> {
       appBar: _appBar(),
       body: _buildUI(),
       floatingActionButton: FloatingActionButton(
-        onPressed: _displayTextInputDialog, backgroundColor: Theme
-          .of(context)
-          .colorScheme
-          .primary,
+        onPressed: _displayTextInputDialog,
+        backgroundColor: Colors.blue,
         child: const Icon(
           Icons.add,
           color: Colors.white,
-        ),),
+        ),
+      ),
     );
   }
 
+
   PreferredSizeWidget _appBar() {
     return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Colors.blue,
       title: const Text(
         "Todo",
         style: TextStyle(
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
           color: Colors.white,
           onPressed: () {
             FirebaseAuth.instance.signOut();
-            Navigator.pushNamed(context, "/login");
+            Navigator.pushReplacementNamed(context, "/login");
             showToast(message: "Successfully signed out");
           },
         ),
@@ -101,13 +101,13 @@ class _HomePageState extends State<HomePage> {
                   horizontal: 10,
                 ),
                 child: ListTile(
-                  tileColor: Theme
-                      .of(context)
-                      .colorScheme
-                      .primaryContainer,
-                  title: Text(todo.task),
-                  subtitle: Text(DateFormat("dd-MM-yyy h:mm a").format(
-                    todo.updatedOn.toDate(),
+                  tileColor: Colors.blue,
+                  title: Text(
+                      todo.task,
+                      style: TextStyle(color: Colors.white),
+                  ),
+                  subtitle: Text(
+                    DateFormat("dd-MM-yyy h:mm a").format(todo.updatedOn.toDate(),
                   ),
                   ),
                   trailing: Checkbox(
@@ -118,6 +118,8 @@ class _HomePageState extends State<HomePage> {
                           updatedOn: Timestamp.now());
                       _databaseService.updateTodo(todoId, updatedTodo);
                     },
+                    checkColor: Colors.white,
+                    activeColor: Colors.blue,
                   ),
                   onLongPress: () {
                     _databaseService.deleteTodo(todoId);
@@ -143,7 +145,7 @@ class _HomePageState extends State<HomePage> {
             ),
             actions: <Widget>[
               MaterialButton(
-                color: Theme.of(context).colorScheme.primary,
+                color: Colors.blue,
                 textColor: Colors.white,
                 child: const Text('Ok'),
                 onPressed: () {

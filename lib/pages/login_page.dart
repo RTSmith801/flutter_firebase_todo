@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_todo/global/common/toast.dart';
 import 'package:flutter_firebase_todo/pages/home_page.dart';
 import 'package:flutter_firebase_todo/pages/sign_up_page.dart';
 import 'package:flutter_firebase_todo/services/firebase_auth_services.dart';
@@ -20,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
+
   @override
   // prevents memory leaks
   void dispose() {
@@ -32,8 +34,13 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text(
+          "Login",
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+        ),
+        backgroundColor: Colors.blue,
       ),
+
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -107,9 +114,11 @@ class _LoginPageState extends State<LoginPage> {
 
     if (user != null){
       print("User is successfully signed in");
-      Navigator.pushNamed(context, "/home");
+      showToast(message: "User is successfully signed in");
+      Navigator.pushReplacementNamed(context, "/home");
     } else {
       print("Error occurred in login_page.dart (approx. line 114)");
+      showToast(message: "An error occurred");
     }
   }
 }
