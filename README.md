@@ -10,7 +10,6 @@
     -->
     <meta charset="utf-8">
 </head>
-
 <body>
     <header>
         <a href="https://pixeltapestry.com/cv" target="_blank">
@@ -34,13 +33,10 @@
             <li>Email and password authentication required for login.</li>
             <li>Database of todo tasks is linked to individual user accounts.</li>
         </ul>
-
         <h3>Takeaways</h3>
         <p>The primary hurdle encountered was configuring the development environment with the necessary packages. This involved utilizing the terminal for required installations and downloads, which proved to be somewhat daunting.</p>
-
         <h3>Access the Application</h3>
         <p>A web version of this application has been deployed via Firebase through Git and is accessible <a href="https://flutterfirebasetodo-6dd0b.web.app/#/login" target="_blank">here</a>.</p>
     </main>
 </body>
-
 </html>
