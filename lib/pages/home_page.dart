@@ -125,6 +125,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   onLongPress: () {
                     _databaseService.deleteTodo(todoId);
+                    showToast(message: "Deleted task");
                   },
                 ),
               );
