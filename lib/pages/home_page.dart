@@ -8,9 +8,8 @@ import 'package:flutter_firebase_todo/services/database_service.dart';
 import 'package:flutter_firebase_todo/global/common/toast.dart';
 import 'package:intl/intl.dart';
 
-
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -18,7 +17,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController _textEditingController = TextEditingController();
-
   final DatabaseService _databaseService = DatabaseService();
 
   @override
@@ -38,13 +36,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   PreferredSizeWidget _appBar() {
+    User? user = FirebaseAuth.instance.currentUser;
+    String userEmail = user?.email ?? '';
     return AppBar(
       backgroundColor: Colors.blue,
       centerTitle: true, // Center the title
-      title: const Text(
-        "Flutter To Do App",
+      title: Text(
+        userEmail,
         style: TextStyle(
           color: Colors.white,
         ),
@@ -64,24 +63,20 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   Widget _buildUI() {
     return SafeArea(
-        child: Column(
-          children: [
-            _messagesListView(),
-          ],
-        ));
+      child: Column(
+        children: [
+          _messagesListView(),
+        ],
+      ),
+    );
   }
 
   Widget _messagesListView() {
     return SizedBox(
-      height: MediaQuery
-          .sizeOf(context)
-          .height * 0.80,
-      width: MediaQuery
-          .sizeOf(context)
-          .width,
+      height: MediaQuery.of(context).size.height * 0.80,
+      width: MediaQuery.of(context).size.width,
       child: StreamBuilder(
         stream: _databaseService.getTodos(),
         builder: (context, snapshot) {
@@ -105,19 +100,19 @@ class _HomePageState extends State<HomePage> {
                 child: ListTile(
                   tileColor: Colors.blue,
                   title: Text(
-                      todo.task,
-                      style: TextStyle(color: Colors.white),
+                    todo.task,
+                    style: TextStyle(color: Colors.white),
                   ),
                   subtitle: Text(
-                    DateFormat("dd-MM-yyy h:mm a").format(todo.updatedOn.toDate(),
-                  ),
+                    DateFormat("dd-MM-yyy h:mm a").format(todo.updatedOn.toDate()),
                   ),
                   trailing: Checkbox(
                     value: todo.isDone,
                     onChanged: (value) {
                       Todo updatedTodo = todo.copyWith(
-                          isDone: !todo.isDone,
-                          updatedOn: Timestamp.now());
+                        isDone: !todo.isDone,
+                        updatedOn: Timestamp.now(),
+                      );
                       _databaseService.updateTodo(todoId, updatedTodo);
                     },
                     checkColor: Colors.white,
@@ -141,28 +136,29 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-            title: const Text('Add a todo'),
-            content: TextField(
-              controller: _textEditingController,
-              decoration: const InputDecoration(hintText: "Todo..."),
-            ),
-            actions: <Widget>[
-              MaterialButton(
-                color: Colors.blue,
-                textColor: Colors.white,
-                child: const Text('Ok'),
-                onPressed: () {
-                  Todo todo = Todo(
-                      task: _textEditingController.text,
-                      isDone: false,
-                      createdOn: Timestamp.now(),
-                      updatedOn:  Timestamp.now());
-                  _databaseService.addTodo(todo);
-                  Navigator.pop(context);
-                  _textEditingController.clear();
-                },
-              )
-            ]
+          title: const Text('Add a todo'),
+          content: TextField(
+            controller: _textEditingController,
+            decoration: const InputDecoration(hintText: "Todo..."),
+          ),
+          actions: <Widget>[
+            MaterialButton(
+              color: Colors.blue,
+              textColor: Colors.white,
+              child: const Text('Ok'),
+              onPressed: () {
+                Todo todo = Todo(
+                  task: _textEditingController.text,
+                  isDone: false,
+                  createdOn: Timestamp.now(),
+                  updatedOn: Timestamp.now(),
+                );
+                _databaseService.addTodo(todo);
+                Navigator.pop(context);
+                _textEditingController.clear();
+              },
+            )
+          ],
         );
       },
     );
