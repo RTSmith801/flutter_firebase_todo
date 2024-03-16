@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-            child: Text("Welcome To Flutter Firebase",
+            child: Text("Starting: Todo App",
               style: TextStyle(
                 color: Colors.blue,
                 fontWeight: FontWeight.bold,

@@ -42,8 +42,9 @@ class _HomePageState extends State<HomePage> {
   PreferredSizeWidget _appBar() {
     return AppBar(
       backgroundColor: Colors.blue,
+      centerTitle: true, // Center the title
       title: const Text(
-        "Todo",
+        "Flutter To Do App",
         style: TextStyle(
           color: Colors.white,
         ),
@@ -62,6 +63,7 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
+
 
   Widget _buildUI() {
     return SafeArea(
