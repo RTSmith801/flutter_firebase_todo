@@ -12,8 +12,8 @@
 </head>
 <body>
     <header>
-        <a href="https://pixeltapestry.com/cv" target="_blank">
-            <img src="https://pixeltapestry.com/wp-content/uploads/2023/09/Pixel_Tapestry_logo_yellow-e1694147529595.png" style="height: 50px; width: auto;" alt="Pixel Tapestry Logo">
+        <a href="https://pixeltapestry.com/" target="_blank">
+            <img src="https://i.postimg.cc/nhhdyr9p/Pixel-Tapestry-logo-yellow.png" style="height: 50px; width: auto;" alt="Pixel Tapestry Logo">
         </a>
         <h1>Flutter Firebase Todo</h1>
         <p>A <i>CRUD</i> Flutter todo project that utilizes Firebase.</p>
@@ -37,6 +37,8 @@
         <p>The primary hurdle encountered was configuring the development environment with the necessary packages. This involved utilizing the terminal for required installations and downloads, which proved to be somewhat daunting.</p>
         <h3>Access the Application</h3>
         <p>A web version of this application has been deployed via Firebase through Git and is accessible <a href="https://flutterfirebasetodo-6dd0b.web.app/#/login" target="_blank">here</a>.</p>
+        <p align="center"><img src="flutter_firebase_todo_demo.gif" style="max-width: 680px; margin: auto; text-align: center;" alt="App demo gif"></p>
     </main>
+
 </body>
 </html>
