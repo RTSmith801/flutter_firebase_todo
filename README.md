@@ -20,7 +20,7 @@
     </header>
     <main>
         <h2>Introduction</h2>
-        <p>This is my inaugural functional <i>CRUD (create | read | update | delete)</i> application, developed to explore Flutter's development environment within Android Studio. Leveraging Firebase, the application mandates login via email and password. Users can create lists upon signing up, access existing lists upon signing in, modify tasks to update these lists, and delete list items, all within the app.</p>
+        <p>This functional CRUD (Create, Read, Update, Delete) application was developed to explore Flutter’s development environment within Android Studio. Leveraging Firebase, the app supports user authentication via email and password. Upon signing in, users can create and manage lists, update tasks, and delete list items, ensuring seamless data handling within the application.</p>
         <h3>Features:</h3>
         <ul>
             <li>Multi-page layout:</li>
